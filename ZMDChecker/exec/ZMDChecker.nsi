@@ -62,6 +62,8 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   File "ZMDChecker.exe"
+  File "license.txt"
+  File "ReadMe.txt"
   CreateDirectory "$SMPROGRAMS\ZMDChecker"
   CreateShortCut "$SMPROGRAMS\ZMDChecker\ZMDChecker.lnk" "$INSTDIR\ZMDChecker.exe"
   CreateShortCut "$DESKTOP\ZMDChecker.lnk" "$INSTDIR\ZMDChecker.exe"
@@ -101,6 +103,8 @@ Section Uninstall
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\ZMDChecker.exe"
+  Delete "$INSTDIR\ReadMe.txt"
+  Delete "$INSTDIR\license.txt"
 
   Delete "$SMPROGRAMS\ZMDChecker\Uninstall.lnk"
   Delete "$SMPROGRAMS\ZMDChecker\ZMDCheckerHomepage.lnk"
