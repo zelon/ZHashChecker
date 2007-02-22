@@ -21,6 +21,7 @@ ZMD5Checker & ZMD5Checker::getInstance()
 ZMD5Checker::ZMD5Checker()
 : m_bMD5Summing(false)
 {
+	m_hashType = eHashType_MD5SUM;
 }
 
 void ZMD5Checker::SetWindowTitle()
@@ -239,6 +240,9 @@ int CALLBACK ZMD5Checker::WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM l
 			MD5_OBJ.StartFromInitFilename();
 		}
 
+		/// 시작할 때 MD5Sum 을 기본으로 한다.
+		//::SendMessage(GetDlgItem(hWnd, IDC_RADIO_MD5), BM_SETCHECK, 0, 0);
+		CheckRadioButton(hWnd, IDC_RADIO_MD5, IDC_RADIO_SHA1SUM, IDC_RADIO_MD5);
 		return TRUE;
 
 	case WM_COMMAND:
@@ -444,7 +448,18 @@ void ZMD5Checker::Execute()
 		char szFileName[FILENAME_MAX];
 		GetDlgItemText(m_hWnd, IDC_GOT_FILE, szFileName, FILENAME_MAX);
 
-		string strGetMD5SUM = m_fileHash.GetHashStringFromFile(szFileName, eHashType_MD5SUM, this);
+		if ( SendMessage(GetDlgItem(m_hWnd, IDC_RADIO_MD5), BM_GETCHECK, 0, 0) == BST_CHECKED )
+		{
+			m_hashType = eHashType_MD5SUM;
+			//MessageBox(m_hWnd, "md5", "md5", MB_OK);
+		}
+		else
+		{
+			m_hashType = eHashType_SHA1;
+			//MessageBox(m_hWnd, "sha", "sha", MB_OK);
+		}
+
+		string strGetMD5SUM = m_fileHash.GetHashStringFromFile(szFileName, m_hashType, this);
 
 		// 체크된 내용을 화면에 표시한다.
 		SetDlgItemText(m_hWnd, IDC_GOT_MD5SUM, strGetMD5SUM.c_str());

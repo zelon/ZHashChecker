@@ -30,6 +30,8 @@ public:
 
 private:
 
+	eHashType m_hashType;
+
 	bool ZMD5Checker::CreateShortCut(string strLnkTarget, string strLnkName, UINT SpecialFolder, string strLnkDescription, string strIconLocation, UINT IconIndex);
 	void MakeSendToShortcut();
 	void DeleteSendToShortcut();

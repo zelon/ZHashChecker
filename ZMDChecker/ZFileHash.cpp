@@ -70,8 +70,17 @@ string ZFileHash::HashFile(const char * szFilename, const eHashType hashType, IH
 		CMD5 md5Hash;
 		SHA1 sha1Hash;
 
-		//IHahFunction * pFunc = &md5Hash;
-		IHahFunction * pFunc = &sha1Hash;
+		IHahFunction * pFunc;
+
+		if ( hashType == eHashType_MD5SUM )
+		{
+			pFunc = &md5Hash;
+		}
+		else
+		{
+			pFunc = &sha1Hash;
+		}
+
 
 		pFunc->init();
 
