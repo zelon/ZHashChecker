@@ -5,6 +5,7 @@
 #include "md5Checker.h"
 #include "resource.h"
 
+#include <shellapi.h>
 
 #include "CommonDefine.h"
 using namespace std;
@@ -243,7 +244,28 @@ int CALLBACK ZMD5Checker::WndProc(HWND hWnd,UINT iMessage,WPARAM wParam,LPARAM l
 		/// 시작할 때 MD5Sum 을 기본으로 한다.
 		//::SendMessage(GetDlgItem(hWnd, IDC_RADIO_MD5), BM_SETCHECK, 0, 0);
 		CheckRadioButton(hWnd, IDC_RADIO_MD5, IDC_RADIO_SHA1SUM, IDC_RADIO_MD5);
+
+		// 탐색기에서의 Drag&Drop 을 가능하게 한다.
+		DragAcceptFiles(hWnd, TRUE);
+
 		return TRUE;
+
+	case WM_DROPFILES:///< 탐색기에서 드래그 앤 드랍으로 놓았을 때
+		{
+			HDROP hDrop = (HDROP)wParam;
+
+			UINT iFileNum = 0;
+
+			iFileNum = DragQueryFile(hDrop, 0xffffffff, 0, 0);
+
+			if ( iFileNum <= 0 ) break;
+
+			TCHAR szFileName[MAX_PATH] = { 0 };
+			DragQueryFile(hDrop, 0, szFileName, MAX_PATH);
+
+			SetWindowText(GetDlgItem(hWnd, IDC_GOT_FILE), szFileName);
+		}
+		break;
 
 	case WM_COMMAND:
 		{

@@ -59,7 +59,7 @@ string ZFileHash::HashFile(const char * szFilename, const eHashType hashType, IH
 	FILE *file;
 	//  MD_CTX context;
 	size_t len;
-	unsigned char buffer[1024], digest[20];
+	unsigned char buffer[1024], digest[256];
 
 	if ((file = fopen (szFilename, "rb")) == NULL)
 	{

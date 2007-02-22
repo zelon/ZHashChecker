@@ -110,7 +110,7 @@ namespace FileHash
 		virtual int insertData( const unsigned char *_data, size_t _dataLen );
 		virtual int getResult( unsigned char * pResult, size_t resultLen);
 
-		virtual size_t getResultSize() { return 15; }
+		virtual size_t getResultSize() { return 16; }
 
 	private:
 		void MD5Final ( unsigned char *digest, MD5_CTX *context );
