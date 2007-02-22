@@ -1,5 +1,7 @@
 #pragma once
 
+#include "IHashFunction.h"
+
 namespace FileHash
 {
 	#ifndef PROTOTYPES
@@ -95,7 +97,7 @@ namespace FileHash
 	}
 
 
-	class CMD5
+	class CMD5 : public IHahFunction
 	{
 	private:
 		MD5_CTX _context;
@@ -104,18 +106,20 @@ namespace FileHash
 		CMD5();
 		~CMD5();
 
-		void Init();
-		void InsertString( unsigned char *_data, int _dataLen );
-		void GetHashResult( unsigned char *_result );
+		virtual int init();
+		virtual int insertData( const unsigned char *_data, size_t _dataLen );
+		virtual int getResult( unsigned char * pResult, size_t resultLen);
+
+		virtual size_t getResultSize() { return 15; }
 
 	private:
 		void MD5Final ( unsigned char *digest, MD5_CTX *context );
-		void MD5Update ( MD5_CTX *context, unsigned char *input, unsigned int inputLen );
+		void MD5Update ( MD5_CTX *context, const unsigned char *input, unsigned int inputLen );
 		void Encode ( unsigned char *output, UINT4 *input, unsigned int len );
 		void MD5_memset ( POINTER output, int value, unsigned int len );
 		void MD5_memcpy ( POINTER output, POINTER input, unsigned int len );
-		void Decode ( UINT4 *output, unsigned char *input, unsigned int len );
-		void MD5Transform ( UINT4 *state, unsigned char *block );
+		void Decode ( UINT4 *output, const unsigned char *input, unsigned int len );
+		void MD5Transform ( UINT4 *state, const unsigned char *block );
 		void MD5Init ( MD5_CTX *context );
 	};
 }

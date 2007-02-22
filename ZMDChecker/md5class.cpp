@@ -5,7 +5,7 @@ using namespace FileHash;
 
 CMD5::CMD5()
 {
-	Init();
+	init();
 }
 
 CMD5::~CMD5()
@@ -13,19 +13,30 @@ CMD5::~CMD5()
 
 }
 
-void CMD5::Init()
+int CMD5::init()
 {
 	MD5Init( &_context );
+
+	return 0;
 }
 
-void CMD5::InsertString( unsigned char *_data, int _dataLen )
+int CMD5::insertData( const unsigned char *_data, size_t _dataLen )
 {
-	MD5Update( &_context, _data, _dataLen );
+	MD5Update( &_context, _data, (int)_dataLen );
+
+	return 0;
 }
 
-void CMD5::GetHashResult( unsigned char *_result )
+int CMD5::getResult( unsigned char * pResult, size_t resultLen)
 {
-	MD5Final( _result, &_context );
+	if ( resultLen < 16 )
+	{
+		_ASSERTE(false);
+		return 1;
+	}
+	MD5Final( pResult, &_context );
+
+	return 0;
 }
 
 void CMD5::MD5Final ( unsigned char *digest, MD5_CTX *context )
@@ -57,7 +68,7 @@ void CMD5::MD5Final ( unsigned char *digest, MD5_CTX *context )
 operation, processing another message block, and updating the
 context.
 */
-void CMD5::MD5Update ( MD5_CTX *context, unsigned char *input, unsigned int inputLen )
+void CMD5::MD5Update ( MD5_CTX *context, const unsigned char *input, unsigned int inputLen )
 {
 	unsigned int i, index, partLen;
 
@@ -114,7 +125,7 @@ void CMD5::Encode ( unsigned char *output, UINT4 *input, unsigned int len )
 /* Decodes input (unsigned char) into output (UINT4). Assumes len is
 a multiple of 4.
 */
-void CMD5::Decode ( UINT4 *output, unsigned char *input, unsigned int len )
+void CMD5::Decode ( UINT4 *output, const unsigned char *input, unsigned int len )
 {
 	unsigned int i, j;
 
@@ -147,7 +158,7 @@ void CMD5::MD5_memset ( POINTER output, int value, unsigned int len )
 
 /* MD5 basic transformation. Transforms state based on block.
 */
-void CMD5::MD5Transform ( UINT4 *state, unsigned char *block )
+void CMD5::MD5Transform ( UINT4 *state, const unsigned char *block )
 {
 	UINT4 a = state[0], b = state[1], c = state[2], d = state[3], x[16];
 

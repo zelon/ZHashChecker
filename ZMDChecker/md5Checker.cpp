@@ -444,7 +444,7 @@ void ZMD5Checker::Execute()
 		char szFileName[FILENAME_MAX];
 		GetDlgItemText(m_hWnd, IDC_GOT_FILE, szFileName, FILENAME_MAX);
 
-		string strGetMD5SUM = m_fileHash.GetHashStringFromFile(szFileName, this);
+		string strGetMD5SUM = m_fileHash.GetHashStringFromFile(szFileName, eHashType_MD5SUM, this);
 
 		// 체크된 내용을 화면에 표시한다.
 		SetDlgItemText(m_hWnd, IDC_GOT_MD5SUM, strGetMD5SUM.c_str());

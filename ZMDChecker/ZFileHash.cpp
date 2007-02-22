@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include ".\zfilehash.h"
 #include "md5class.h"
+#include "IHashFunction.h"
+#include "sha-1.h"
 
 using namespace std;
 
@@ -16,13 +18,13 @@ ZFileHash::~ZFileHash(void)
 }
 
 
-string ZFileHash::GetHashStringFromFile(const string & filename, IHashProgressListener * pProgressListener)
+string ZFileHash::GetHashStringFromFile(const string & filename, const eHashType hashType, IHashProgressListener * pProgressListener)
 {
 	string strRet;
 
 	try
 	{
-		strRet = MDFile (filename.c_str(), pProgressListener);
+		strRet = HashFile (filename.c_str(), hashType, pProgressListener);
 	}
 	catch ( FileHashException ex )
 	{
@@ -34,11 +36,11 @@ string ZFileHash::GetHashStringFromFile(const string & filename, IHashProgressLi
 	return strRet;
 }
 
-string ZFileHash::MDFile(const char *filename, IHashProgressListener * pProgressListener)
+string ZFileHash::HashFile(const char * szFilename, const eHashType hashType, IHashProgressListener * pProgressListener)
 {
 	unsigned __int64 filesize = 0;
 
-	HANDLE hFile = CreateFile(filename, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_ARCHIVE, 0);
+	HANDLE hFile = CreateFile(szFilename, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, FILE_ATTRIBUTE_ARCHIVE, 0);
 	if ( hFile == INVALID_HANDLE_VALUE )
 	{
 		CloseHandle(hFile);
@@ -57,16 +59,21 @@ string ZFileHash::MDFile(const char *filename, IHashProgressListener * pProgress
 	FILE *file;
 	//  MD_CTX context;
 	size_t len;
-	unsigned char buffer[1024], digest[16];
+	unsigned char buffer[1024], digest[20];
 
-	if ((file = fopen (filename, "rb")) == NULL)
+	if ((file = fopen (szFilename, "rb")) == NULL)
 	{
 		throw FileHashException("파일을 열 수 없습니다. 파일명이 잘못되었거나, 다른 프로그램이 쓰고 있을 수 있습니다.");
 	}
 	else
 	{
-		CMD5 md5;
-		// MDInit (&context);
+		CMD5 md5Hash;
+		SHA1 sha1Hash;
+
+		//IHahFunction * pFunc = &md5Hash;
+		IHahFunction * pFunc = &sha1Hash;
+
+		pFunc->init();
 
 		if ( len = 0 )
 		{
@@ -87,24 +94,29 @@ string ZFileHash::MDFile(const char *filename, IHashProgressListener * pProgress
 			{
 				pProgressListener->OnProgress( (int)(lenTotal * 10000 / filesize));
 			}
-			md5.InsertString( buffer, (int)len );
+			pFunc->insertData( buffer, (int)len );
 		}
-		md5.GetHashResult( digest );
+
+		memset(digest, 0, sizeof(digest));
+
+		pFunc->getResult( digest, sizeof(digest));
 		fclose (file);
 
-		ret = MDPrint(digest);
+		size_t len = pFunc->getResultSize();
+
+		ret = HexPrint(digest, len);
 	}
 	return ret;
 }
 
-string ZFileHash::MDPrint(unsigned char *digest )
+std::string ZFileHash::HexPrint(unsigned char *digest, size_t len )
 {
-	unsigned int i;
+	size_t i;
 	char buffer[5] = {0};
 
-	string ret;
+	std::string ret;
 
-	for (i = 0; i < 16; i++)
+	for (i = 0; i < len; i++)
 	{
 		memset(buffer, 0, sizeof(buffer));
 		sprintf (buffer, "%02x", digest[i]);
@@ -112,3 +124,5 @@ string ZFileHash::MDPrint(unsigned char *digest )
 	}
 	return ret;
 }
+
+

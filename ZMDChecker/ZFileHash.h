@@ -13,6 +13,13 @@
 #define MDUpdate MD5Update
 #define MDFinal MD5Final
 
+enum eHashType
+{
+	eHashType_MD5SUM,
+	eHashType_SHA1,
+};
+
+
 using namespace std;
 
 namespace FileHash
@@ -62,12 +69,12 @@ namespace FileHash
 		ZFileHash(void);
 		~ZFileHash(void);
 
-		string GetHashStringFromFile(const string & filename, IHashProgressListener * pProgressListener);
+		string GetHashStringFromFile(const string & filename, const eHashType hashType, IHashProgressListener * pProgressListener);
 		void setGoOn(bool bGoOn) { m_bGoOn = bGoOn; }
 
 	private:
-		string MDFile(const char *filename, IHashProgressListener * pProgressListener);
-		string MDPrint(unsigned char *digest );
+		string HashFile(const char * szFilename, const eHashType hashType, IHashProgressListener * pProgressListener);
+		std::string HexPrint(unsigned char *digest, size_t len );
 
 		IHashProgressListener * m_pProgressListener;
 		bool m_bGoOn;

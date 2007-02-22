@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="md5Checker"
 	ProjectGUID="{29F4949E-DE70-4D52-80F5-D3C4E2FC46C9}"
+	RootNamespace="md5Checker"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -196,6 +197,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\sha-1.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -230,6 +235,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IHashFunction.h"
+				>
+			</File>
+			<File
 				RelativePath=".\md5Checker.h"
 				>
 			</File>
@@ -239,6 +248,10 @@
 			</File>
 			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sha-1.h"
 				>
 			</File>
 			<File
