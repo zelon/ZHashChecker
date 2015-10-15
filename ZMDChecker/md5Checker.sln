@@ -1,8 +1,10 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "md5Checker", "md5Checker.vcproj", "{29F4949E-DE70-4D52-80F5-D3C4E2FC46C9}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "md5Checker", "md5Checker.vcxproj", "{29F4949E-DE70-4D52-80F5-D3C4E2FC46C9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MakeBigTempFile", "MakeBigTempFile\MakeBigTempFile.vcproj", "{9DCBEA67-7226-4582-8C9C-CFD02FAE5112}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MakeBigTempFile", "MakeBigTempFile\MakeBigTempFile.vcxproj", "{9DCBEA67-7226-4582-8C9C-CFD02FAE5112}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
