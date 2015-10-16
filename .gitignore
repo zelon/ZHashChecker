@@ -1,0 +1,12 @@
+ZMDChecker/.vs/
+ZMDChecker/exec/ZMDCheckerD.exe
+ZMDChecker/exec/ZMDCheckerD.ilk
+ZMDChecker/exec/md5CheckerD.map
+ZMDChecker/exec/md5CheckerD.pdb
+ZMDChecker/MakeBigTempFile/Debug/MakeBigTempFile.exe
+ZMDChecker/MakeBigTempFile/Debug/MakeBigTempFile.ilk
+ZMDChecker/MakeBigTempFile/Debug/MakeBigTempFile.pdb
+ZMDChecker/ipch
+ZMDChecker/obj/
+ZMDChecker/md5Checker.sdf
+*.swp
