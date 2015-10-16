@@ -15,13 +15,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 한국어 resources
+// Korean (Korea) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
-#ifdef _WIN32
 LANGUAGE LANG_KOREAN, SUBLANG_DEFAULT
 #pragma code_page(949)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -37,7 +35,7 @@ IDI_BIG_ICON            ICON                    "icon1.ico"
 // Menu
 //
 
-IDC_MD5CHECKER MENU 
+IDC_MD5CHECKER MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -55,7 +53,7 @@ END
 // Accelerator
 //
 
-IDC_MD5CHECKER ACCELERATORS 
+IDC_MD5CHECKER ACCELERATORS
 BEGIN
     "?",            IDM_ABOUT,              ASCII,  ALT
     "/",            IDM_ABOUT,              ASCII,  ALT
@@ -67,7 +65,7 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG  22, 17, 230, 75
+IDD_ABOUTBOX DIALOG 22, 17, 230, 75
 STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
 FONT 9, "System"
@@ -80,7 +78,7 @@ END
 
 IDD_MAINDLG DIALOGEX 0, 0, 367, 166
 STYLE DS_SETFONT | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "ZMD5Checker v1.1.0 :: http://www.wimy.com"
+CAPTION "ZHashChecker v1.2.0 :: http://www.wimy.com"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     PUSHBUTTON      "파일찾기...",IDC_BROWSE,310,7,50,14
@@ -92,7 +90,7 @@ BEGIN
     LTEXT           "파일 위치 :",IDC_STATIC,7,9,40,8
     LTEXT           "파일 결과 :",IDC_STATIC,7,71,40,8
     PUSHBUTTON      "비교하기",IDC_BT_COMPARE,7,90,353,21
-    CONTROL         "",IDC_MD5SUM_PROGRESS,"msctls_progress32",WS_BORDER | 0x1,31,26,227,14
+    CONTROL         "",IDC_MD5SUM_PROGRESS,"msctls_progress32",PBS_SMOOTH | WS_BORDER,31,26,227,14
     PUSHBUTTON      "중지",IDC_BT_STOP,328,26,32,14
     PUSHBUTTON      "계산 시작",IDC_BT_START,264,26,60,14
     PUSHBUTTON      "탐색기의 보내기에 추가",IDC_BT_ADD_SENDTO,7,145,101,14
@@ -137,7 +135,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_MAINDLG, DIALOG
     BEGIN
@@ -162,13 +160,13 @@ IDB_BITMAP1             BITMAP                  "ZMD5Sum.bmp"
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_APP_TITLE           "md5Checker"
     IDC_MD5CHECKER          "MD5CHECKER"
 END
 
-#endif    // 한국어 resources
+#endif    // Korean (Korea) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
