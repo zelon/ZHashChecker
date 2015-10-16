@@ -438,7 +438,7 @@ void ZMD5Checker::CheckSameStringMD5SUM()
 
 	if ( m_bMD5Summing )
 	{
-		ShowMsg("MD5SUM 을 진행 중 입니다.");
+    ShowMsg("Hashing...");
 		return;
 	}
 
@@ -451,11 +451,11 @@ void ZMD5Checker::CheckSameStringMD5SUM()
 	// 비교해서 결과를 보여준다.
 	if ( strInput == strResult )
 	{
-		ShowMsg("같은 MD5SUM 값입니다.");
+		ShowMsg("Same hash value");
 	}
 	else
 	{
-		ShowMsg("서로 다른 MD5SUM 값입니다!!");
+    ShowMsg("Not same hash value");
 	}
 }
 
